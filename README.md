@@ -14,17 +14,17 @@ routes.py
            In this file the initialise the route to useragent file and ip address file which connects to http url which creates the 
 
 **mongodb.py**
--Checks if the specified collection exists in the MongoDB database.
--Creates the collection if it doesn't exist.
--Ensures there is an index on the cidr field for efficient querying.
--Handles exceptions during connection and setup.
-bot_ip.py
+Checks if the specified collection exists in the MongoDB database.
+Creates the collection if it doesn't exist.
+Ensures there is an index on the cidr field for efficient querying.
+Handles exceptions during connection and setup.
+**bot_ip.py**
 **fetch_bot_ips**
--Sends a GET request to each URL to fetch IP data.
--Converts the response text into a DataFrame for easier manipulation.
--Filters out commented lines and unnecessary whitespace.
--Converts plain IP addresses to CIDR notation (IPv4 to /32 and IPv6 to /128).-
--Prepares the data in a format suitable for bulk writing to MongoDB.
+Sends a GET request to each URL to fetch IP data.
+Converts the response text into a DataFrame for easier manipulation.
+Filters out commented lines and unnecessary whitespace.
+Converts plain IP addresses to CIDR notation (IPv4 to /32 and IPv6 to /128).
+Prepares the data in a format suitable for bulk writing to MongoDB.
 **bulk_update_bot_ips**
 Creates UpdateOne operations for each IP address and its data.
 Executes the bulk write operation to update the database.
@@ -38,6 +38,6 @@ Extracts user agent strings from the <li> elements with class user-agent-li.
 Prepares the data in a format suitable for bulk writing to MongoDB.
 Handles exceptions during data scraping, logs errors, and posts error messages to Slack.
 **bulk_update_user_agents**
--Performs a bulk update operation to insert or update user agent strings in MongoDB.
+Performs a bulk update operation to insert or update user agent strings in MongoDB.
 **user_agents_with_category**: 
 Each function defines a specific category of user agents and uses the fetch_user_agents and bulk_update_user_agents functions to process and store them.The useragent categorise are soc bot, data centre bot, crawler bot, social media bot, scraper,ad fraud bot, archiving bot
