@@ -8,19 +8,6 @@ Framework used: Flask
 
 Libraries used: pandas,BeautifulSoup,requests
 
-Data directory:
-
-BOTDATA/
-│
-├── app/
-│   ├── __init__.py
-│   ├── routes.py
-│   ├── bot_ip.py
-│   ├── user_agent.py
-│   └── mongodb.py
-├── .env
-├── env_loader.py
-└── run.py
 
 __init__.py
 	In this code snippet flask is been initialised which is connected to routes
