@@ -6,7 +6,8 @@ def load_env_variables():
     return {
         'MONGODBURL': os.getenv('MONGODBURL'),
         'DB_NAME': os.getenv('DB_NAME'),
-        'user_agent_collection': os.getenv('user_agent_collection'),
+        'bot_user_agent_collection': os.getenv('bot_user_agent_collection'),
+        'legitimate_user_agent_collection': os.getenv('legitimate_user_agent_collection'),
         'bot_ip_collection': os.getenv('bot_ip_collection'),
         'SLACK_WEBHOOK_URL': os.getenv('SLACK_WEBHOOK_URL'),
         'SLACK_CHANNEL_CODE': os.getenv('SLACK_CHANNEL_CODE'),

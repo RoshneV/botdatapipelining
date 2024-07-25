@@ -2,17 +2,19 @@ import requests
 from bs4 import BeautifulSoup
 from pymongo import UpdateOne
 from app.mongodb import *
-
-
+import logging
 try:
-    if user_agent_collection not in db.list_collection_names():
-        collection = db.create_collection(user_agent_collection)
+    if bot_user_agent_collection not in db.list_collection_names():
+        collection = db.create_collection(bot_user_agent_collection)
     else:
-        collection = db[user_agent_collection]
+        collection = db[bot_user_agent_collection]
         if not collection.index_information():
-            collection.create_index([("cidr", "ascending")])
+            collection.create_index([("user_agent", "ascending")])
 except Exception as e:
     print(f"Error connecting to MongoDB: {str(e)}")
+    message=f"Error connecting to MongoDB:{str(e)}"
+    post_to_slack(message)
+    logging.error(f"Error connecting to MongoDB:{str(e)}")
 def fetch_user_agents(urls, category):
     
     user_agents = []
@@ -29,6 +31,7 @@ def fetch_user_agents(urls, category):
         except Exception as e:
             message=(f"Error scraping {url}: {str(e)}")
             post_to_slack(message)
+            logging.error(message)
     return user_agents_with_category
 
 def bulk_update_user_agents(user_agents_with_category):
@@ -40,7 +43,8 @@ def bulk_update_user_agents(user_agents_with_category):
         result = collection.bulk_write(requests_list)
     except Exception as e:
         message =f"Error in updating :{str(e)}"
-        post_to_slack(message)
+        # post_to_slack(message)
+        logging.error(message)
 def adtrafficbot_ua():
     urls = [
             "https://deviceandbrowserinfo.com/data/user_agent/bot/Google%20AdsBot",

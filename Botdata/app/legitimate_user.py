@@ -4,12 +4,12 @@ from pymongo import UpdateOne
 from app.mongodb import *
 import logging
 try:
-    if user_agent_collection not in db.list_collection_names():
-        collection = db.create_collection(user_agent_collection)
+    if legitimate_user_agent_collection not in db.list_collection_names():
+        collection = db.create_collection(legitimate_user_agent_collection)
     else:
-        collection = db[user_agent_collection]
+        collection = db[legitimate_user_agent_collection]
         if not collection.index_information():
-            collection.create_index([("cidr", "ascending")])
+            collection.create_index([("user_agent", "ascending")])
 except Exception as e:
     print(f"Error connecting to MongoDB: {str(e)}")
     message=f"Error connecting to MongoDB:{str(e)}"
