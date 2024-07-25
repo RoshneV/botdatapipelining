@@ -37,17 +37,24 @@ def update_user_agents():
     scrapingbot_ua()
     socialmedia_bot_ua()
     socbot_ua()
-    ios()
-    mac()
-    windows()
-    android()
-    linux()
+    
     message=f"User agents updated successfully"
     # time=time.now()
     logging.info(message)
     post_to_slack(message)
     return jsonify({"message": "User agents updated successfully"}), 200
 
+@app.route('/update_legitimate_user',methods=['GET'])
+def update_legitimate_user():
+    ios()
+    mac()
+    windows()
+    android()
+    linux()
+    message=f"Legitimate user agents updated successfully"
+    logging.info(message)
+    post_to_slack(message)
+    return jsonify({"message": "Legitimate user agents updated successfully"}), 200
 @app.route('/update_bot_ips', methods=['GET'])
 def update_bot_ips():
     crawler_ip()
@@ -61,4 +68,3 @@ def update_bot_ips():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

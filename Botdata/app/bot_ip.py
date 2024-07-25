@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import logging
 from pymongo import UpdateOne
 from app.mongodb import db, bot_ip_collection
 from app.mongodb import post_to_slack
@@ -12,7 +13,9 @@ try:
             collection.create_index([("cidr", "ascending")])
 except Exception as e:
     message=f"Error connecting to MongoDB: {str(e)}"
-    post_to_slack(message)
+    # post_to_slack(message)
+    logging.error(f"Error connecting to MongoDB:{str(e)}")
+
 
 def fetch_bot_ips(urls, category):
     ip_data_with_set = []
@@ -39,6 +42,7 @@ def fetch_bot_ips(urls, category):
         except Exception as e:
             message=(f"Error scraping {url}: {str(e)}")
             post_to_slack(message)
+            logging.error(f"Error scraping {url}:{str(e)}")
     return ip_data_with_set
 
 def bulk_update_bot_ips(ip_data_with_set):
@@ -48,6 +52,7 @@ def bulk_update_bot_ips(ip_data_with_set):
     except Exception as e:
         message=f"Error updating :{str(e)}"
         post_to_slack(message)
+        logging.error(f"Error updating:{str(e)}")
 
 def data_center_ip():
     urls = [
